@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+   nodejs:
+      build: ./backend
+      environment:
+         PGUSER: postgres
+         PGPASSWORD: postgres
+         POSTGRES_DB: countOfMoney
+         PGHOST: countOfMoney
+         PGPORT: 5432
+      ports:
+         - '4000:4000'
+      depends_on:
+         - postgres
+   postgres:
+      image: postgres:latest
+      container_name: countOfMoney
+      environment:
+         POSTGRES_DB: countOfMoney
+         PGUSER: postgres
+         PGPASSWORD: postgres
+         PGDATA: /var/lib/postgres/data/pgdata
+      ports:
+         - "5432:5432"
+      volumes:
+         - postgres:/var/lib/postgres/data
+
+   vuejs:
+      build: ./frontend
+      volumes:
+         - vuejs:/var/www/html/vuejs
+      ports:
+         - "5173:5173"
+
+volumes:
+   postgres:
+   vuejs:
