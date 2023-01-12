@@ -14,7 +14,7 @@ services:
       depends_on:
          - postgres
    postgres:
-      image: postgres:latest
+      image: postgres:15 -alpine
       container_name: countOfMoney
       environment:
          POSTGRES_DB: countOfMoney
